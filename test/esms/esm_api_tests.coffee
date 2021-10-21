@@ -84,7 +84,7 @@ esm_tests = (ESM) ->
         .then( ->
           bb.all([esm.count_events(ns1), esm.count_events(ns2) ])
         )
-        .spread((c1,c2) ->
+        .then((c1,c2) ->
           c1.should.equal 2
           c2.should.equal 1
         )
@@ -640,7 +640,7 @@ esm_tests = (ESM) ->
                 event_decay_rate: 1.2, current_datetime: yesterday)
               bb.all([sim_today, sim_yesterday])
             )
-            .spread( (s1, s2) ->
+            .then( (s1, s2) ->
               s1['p2'].should.equal(s2['p2`'])
             )
 
@@ -1093,7 +1093,7 @@ esm_tests = (ESM) ->
               esm.find_events(ns, thing: 't')
             ])
           )
-          .spread( (events1, events2, events3) ->
+          .then( (events1, events2, events3) ->
             e1 = events1[0]
             e2 = events2[0]
             e3 = events3[0]
@@ -1120,7 +1120,7 @@ esm_tests = (ESM) ->
               esm.find_events(ns, person: 'p1', thing:'t1')
             ])
           )
-          .spread( (events1, events2, events3, events4, events5) ->
+          .then( (events1, events2, events3, events4, events5) ->
             events1.length.should.equal 3
             events2.length.should.equal 2
             events3.length.should.equal 1
@@ -1209,7 +1209,7 @@ esm_tests = (ESM) ->
               esm.find_events(ns, person: 'p1', action: 'view', things: ['t1','t2'])
             ])
           )
-          .spread( (events1, events2, events3) ->
+          .then( (events1, events2, events3) ->
             events1.length.should.equal 4
             events2.length.should.equal 3
             events3.length.should.equal 2

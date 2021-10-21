@@ -129,14 +129,14 @@ class GER
         @recent_recommendations_by_people(namespace, actions, people.concat(person), _.clone(configuration))
       ])
     )
-    .spread( ( neighbourhood, similarities, recommendations ) =>
+    .then(( neighbourhood, similarities, recommendations ) =>
       bb.all([
         neighbourhood,
         similarities,
         @filter_recommendations(namespace, person, recommendations, configuration.filter_previous_actions)
       ])
     )
-    .spread( (neighbourhood, similarities, recommendations) =>
+    .then( (neighbourhood, similarities, recommendations) =>
       recommendations_object = {}
       recommendations_object.recommendations = @calculate_people_recommendations(similarities, recommendations, configuration)
       recommendations_object.neighbourhood = @filter_similarities(similarities)
@@ -161,7 +161,7 @@ class GER
         @calculate_similarities_from_thing(namespace, thing , things, actions, _.clone(configuration))
       ])
     )
-    .spread( (neighbourhood, similarities) =>
+    .then( (neighbourhood, similarities) =>
       recommendations_object = {}
       recommendations_object.recommendations = @calculate_thing_recommendations(thing, similarities, neighbourhood, configuration)
       recommendations_object.neighbourhood = @filter_similarities(similarities)

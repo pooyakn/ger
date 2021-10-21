@@ -88,7 +88,7 @@ ger_tests = (ESM) ->
         init_ger(ESM, ns1),
         init_ger(ESM, ns2)
       ])
-      .spread (ger1, ger2) ->
+      .then (ger1, ger2) ->
         bb.all([
 
           ger1.event(ns1, 'p1','view','a', expires_at: tomorrow),
@@ -104,7 +104,7 @@ ger_tests = (ESM) ->
             ger2.recommendations_for_person(ns2, 'p1', {neighbourhood_size: 4, neighbourhood_search_size: 8, actions: {view: 1}})
           ])
         )
-        .spread((recs1, recs2) ->
+        .then((recs1, recs2) ->
           recs1.confidence.should.equal recs2.confidence
         )
 
@@ -155,7 +155,7 @@ ger_tests = (ESM) ->
             ger.recommendations_for_person(ns, 'p3', actions: {view: 1})
           ])
         )
-        .spread((recs1, recs2) ->
+        .then((recs1, recs2) ->
           recs1.confidence.should.greaterThan recs2.confidence
         )
 
@@ -176,7 +176,7 @@ ger_tests = (ESM) ->
             ger.recommendations_for_person(ns, 'p3', actions: {view: 1})
           ])
         )
-        .spread((recs1, recs2) ->
+        .then((recs1, recs2) ->
 
           recs2.confidence.should.greaterThan recs1.confidence
         )
@@ -199,8 +199,7 @@ ger_tests = (ESM) ->
             ger.recommendations_for_person(ns, 'p3', actions: {view: 1})
           ])
         )
-        .spread((recs1, recs2) ->
-
+        .then((recs1, recs2) ->
           recs2.confidence.should.greaterThan recs1.confidence
         )
 

@@ -53,7 +53,7 @@ esm_tests = (ESM) ->
           .then( ->
             bb.all([esm.count_events(ns), esm.find_events(ns, person: 'p1', action: 'view', thing: 't1'), esm.find_events(ns, person: 'p1', action: 'buy', thing: 't1')])
           )
-          .spread( (count, es1, es2) ->
+          .then( (count, es1, es2) ->
             count.should.equal 2
             es1.length.should.equal 1
             es2.length.should.equal 1
@@ -110,7 +110,7 @@ esm_tests = (ESM) ->
           .then( ->
             bb.all([esm.count_events(ns), esm.find_events(ns, action: 'view', thing: 't1'), esm.find_events(ns,  action: 'buy', thing: 't1')])
           )
-          .spread( (count, es1, es2) ->
+          .then( (count, es1, es2) ->
             count.should.equal 2
             es1.length.should.equal 1
             es2.length.should.equal 1
