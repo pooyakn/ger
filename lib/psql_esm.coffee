@@ -91,9 +91,11 @@ class PSQLEventStoreManager
   add_events_to_namespace: (namespace, events) ->
     @_knex("#{namespace}.events").insert(events)
     .catch( (error) ->
-      # console.log error.message
+      console.log error.message
       if error.message.indexOf("relation") > -1 and error.message.indexOf(namespace) > -1 and error.message.indexOf("does not exist") > -1
         throw new Errors.NamespaceDoestNotExist()
+      else
+        throw error
     )
 
   find_events: (namespace, options = {}) ->
