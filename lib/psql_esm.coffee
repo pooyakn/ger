@@ -7,7 +7,7 @@ Errors = require './errors'
 moment = require 'moment'
 
 init_events_table = (knex, schema) ->
-  knex.schema.createTable("#{schema}.events",(table) ->
+  knex.schema.createTableIfNotExists("#{schema}.events",(table) ->
     table.increments();
     table.string('person').notNullable()
     table.string('action').notNullable()
@@ -16,8 +16,8 @@ init_events_table = (knex, schema) ->
     table.timestamp('expires_at')
 
   ).then( ->
-    i1 = knex.raw("create index idx_person_created_at_#{schema}_events on \"#{schema}\".events (person, action, created_at DESC)")
-    i2 = knex.raw("create index idx_thing_created_at_#{schema}_events on \"#{schema}\".events (thing, action, created_at DESC)")
+    i1 = knex.raw("create index if not exists idx_person_created_at_#{schema}_events on \"#{schema}\".events (person, action, created_at DESC)")
+    i2 = knex.raw("create index if not exists idx_thing_created_at_#{schema}_events on \"#{schema}\".events (thing, action, created_at DESC)")
     bb.all([i1,i2])
   )
 
