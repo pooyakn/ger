@@ -75,7 +75,7 @@ class PSQLEventStoreManager
     for namespace, es of namespaces
       promises.push @add_events_to_namespace(namespace, es)
 
-    bb.all(promises)
+    Promise.all(promises)
 
 
   add_event: (namespace, person, action, thing, dates = {}) ->
